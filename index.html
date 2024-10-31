@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Платформа онлайн-курсів</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Онлайн Курси</h1>
+            <nav>
+                <button id="login-btn">Вхід</button>
+                <button id="register-btn">Реєстрація</button>
+                <button id="add-course-btn" style="display:none;">Додати курс</button>
+                <button id="logout-btn" style="display:none;">Вихід</button>
+            </nav>
+        </header>
+
+        <div id="auth-container">
+            <div id="login-form" style="display:none;">
+                <h2>Вхід</h2>
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Пароль">
+                <button onclick="login()">Увійти</button>
+            </div>
+
+            <div id="register-form" style="display:none;">
+                <h2>Реєстрація</h2>
+                <input type="text" id="register-name" placeholder="Ім'я">
+                <input type="email" id="register-email" placeholder="Email">
+                <input type="password" id="register-password" placeholder="Пароль">
+                <button onclick="register()">Зареєструватися</button>
+            </div>
+        </div>
+
+        <div id="courses-container">
+            <h2>Доступні курси</h2>
+            <div id="courses-list"></div>
+        </div>
+
+        <div id="add-course-form" style="display:none;">
+            <h2>Додати новий курс</h2>
+            <input type="text" id="course-title" placeholder="Назва курсу">
+            <textarea id="course-description" placeholder="Опис курсу"></textarea>
+            <input type="text" id="course-author" placeholder="Автор курсу">
+            <button onclick="addCourse()">Створити курс</button>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/courses.js"></script>
+</body>
+</html>
