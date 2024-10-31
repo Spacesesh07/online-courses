@@ -60,5 +60,3 @@ For development and customization:
 ## Contributing
 If you find any issues or have suggestions for improvements, please feel free to open a new issue or submit a pull request. Contributions are always welcome!
 
-## License
-This project is licensed under the [MIT License](LICENSE).
