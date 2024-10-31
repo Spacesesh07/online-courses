@@ -1,0 +1,89 @@
+// Функції автентифікації
+async function register() {
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+    const response = await fetch('php/register.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        alert('Реєстрація успішна!');
+        showLoginForm();
+    } else {
+        alert(result.message);
+    }
+}
+
+async function login() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const response = await fetch('php/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+        localStorage.setItem('user', JSON.stringify(result.user));
+        updateUIForLoggedInUser();
+    } else {
+        alert(result.message);
+    }
+}
+
+function logout() {
+    localStorage.removeItem('user');
+    updateUIForLoggedOutUser();
+}
+
+function updateUIForLoggedInUser() {
+    document.getElementById('login-btn').style.display = 'none';
+    document.getElementById('register-btn').style.display = 'none';
+    document.getElementById('logout-btn').style.display = 'block';
+    document.getElementById('add-course-btn').style.display = 'block';
+    loadCourses();
+}
+
+function updateUIForLoggedOutUser() {
+    document.getElementById('login-btn').style.display = 'block';
+    document.getElementById('register-btn').style.display = 'block';
+    document.getElementById('logout-btn').style.display = 'none';
+    document.getElementById('add-course-btn').style.display = 'none';
+}
+
+// Обробники подій
+document.getElementById('login-btn').addEventListener('click', () => {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+});
+
+document.getElementById('register-btn').addEventListener('click', () => {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+});
+
+document.getElementById('logout-btn').addEventListener('click', logout);
+document.getElementById('add-course-btn').addEventListener('click', () => {
+    document.getElementById('add-course-form').style.display = 'block';
+});
+
+// Перевірка стану користувача при завантаженні
+document.addEventListener('DOMContentLoaded', () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+        updateUIForLoggedInUser();
+    } else {
+        updateUIForLoggedOutUser();
+    }
+});
